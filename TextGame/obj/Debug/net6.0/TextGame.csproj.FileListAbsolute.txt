@@ -1,0 +1,14 @@
+D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\TextGame.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\TextGame.AssemblyInfoInputs.cache
+D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\TextGame.AssemblyInfo.cs
+D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\TextGame.csproj.CoreCompileInputs.cache
+D:\GitHub\TextGame\TextGame\bin\Debug\net6.0\TextGame.exe
+D:\GitHub\TextGame\TextGame\bin\Debug\net6.0\TextGame.deps.json
+D:\GitHub\TextGame\TextGame\bin\Debug\net6.0\TextGame.runtimeconfig.json
+D:\GitHub\TextGame\TextGame\bin\Debug\net6.0\TextGame.dll
+D:\GitHub\TextGame\TextGame\bin\Debug\net6.0\TextGame.pdb
+D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\TextGame.dll
+D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\refint\TextGame.dll
+D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\TextGame.pdb
+D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\TextGame.genruntimeconfig.cache
+D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\ref\TextGame.dll
