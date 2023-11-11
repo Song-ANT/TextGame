@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace TextGame
 {
-    internal class PlayGame
+    public class PlayGame
     {
-
-        public void Playe()
+        
+        public void Play()
         {
-            Message message = new();
+            Control control = new Control(messageHandler);
+            MessageHandler messageHandler = new Message(control);
+            
 
-            message.MainScene();
+            control.ControlMessage();
         }
     }
 }
