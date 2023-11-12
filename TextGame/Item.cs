@@ -11,9 +11,8 @@ namespace TextGame
     {
         public bool equip;
         public string name;
-        //string status;
-        //int statusNum;
-        public string stat;
+        public string status;
+        public int statusNum;
         public string explan;
 
         
@@ -22,10 +21,9 @@ namespace TextGame
         {
             this.equip = equip;
             this.name = name;
+            this.status = status;
+            this.statusNum = statusNum;
             this.explan = explan;
-
-            this.stat = status + statusNum;
-            
         }
 
 
