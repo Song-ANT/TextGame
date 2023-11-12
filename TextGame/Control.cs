@@ -10,7 +10,7 @@ namespace TextGame
     public class Control 
     {
         Message message;
-        public int selNext;
+        public int selNext=0;
         public int sel;
         public int num;
         public string[] arr;
@@ -26,13 +26,15 @@ namespace TextGame
             this.sel = 0;
             while (true)
             {
-                num = message.CurrentMessage(selCurrent, ref selNext, sel);
+                num = message.CurrentMessage(selCurrent, sel);
 
                 if (InputKey(ref sel)) break;
                 sel = sel < 0 ? 0 : (sel > num) ? num : sel;
             }
-            //selCurrent = message.NextMessage(selNext, sel);
-            return selNext;
+            selCurrent = message.NextMessage(selCurrent, sel);
+            return selCurrent;
+            //return selNext;
+            
         }
 
 

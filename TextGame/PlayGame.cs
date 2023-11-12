@@ -21,6 +21,7 @@ namespace TextGame
             while (true)
             {
                 selCurrent = control.ControlMessage(selCurrent);
+                if (selCurrent == -1) break;
             }
         }
     }

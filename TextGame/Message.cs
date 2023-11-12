@@ -14,46 +14,57 @@ namespace TextGame
     public class Message
     {
         Character character;
+        int count;
 
         public Message(Character character)
         {
             this.character = character;
+            this.count = character.itemList.Count;
         }
 
 
-        public int CurrentMessage(int selMessage, ref int selNext, int sel)
+        public int CurrentMessage(int selMessage, int sel)
         {
             switch (selMessage)
             {
                 case 0:
-                    return MainMessage(ref selNext, sel);
+                    return MainMessage(sel);
                 case 1:
-                    return StatusMessage(ref selNext, sel);
+                    return StatusMessage(sel);
                 case 2:
-                    return InventoryMessage(ref selNext, sel);
+                    return InventoryMessage(sel);
                 case 3:
-                    return ManageInventoryMessage(ref selNext, sel);
+                    return ManageInventoryMessage(sel);
             }
             return 0;
         }
 
-        //public int NextMessage(int selNext, int sel)
-        //{
-        //    switch (selNext)
-        //    {
-        //        case 0:
-        //            return MainMessageSelect(sel);
-        //    }
-
-        //    return 0;
-        //}
-
-
-// -------------------------------------------------------------------------
-        // 0. 마을 메인메세지
-        public int MainMessage(ref int selNext, int sel)
+        public int NextMessage(int selMessage, int sel)
         {
-            string[] arr = new string[2];
+            switch (selMessage)
+            {
+                case -1:
+                    return -1;
+                case 0:
+                    return MainMessageSelect(sel);
+                case 1:
+                    return 0;
+                case 2:
+                    return InventoryMessageSelect(sel);
+                case 3:
+                    return ManageInventoryMessageSelect(sel);
+
+            }
+
+            return 0;
+        }
+
+
+        // -------------------------------------------------------------------------
+        // 0. 마을 메인메세지
+        public int MainMessage(int sel)
+        {
+            string[] arr = new string[3];
             arr[sel] = "=> ";
 
             Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
@@ -62,21 +73,23 @@ namespace TextGame
             Console.WriteLine($"{arr[0]}1. 상태보기");
             Console.WriteLine($"{arr[1]}2. 인벤토리");
             Console.WriteLine();
+            Console.WriteLine($"\n\n{arr[2]} 게임 종료");
             Console.WriteLine("원하시는 행동을 Enter키를 이용해 선택하세요");
 
-            selNext = MainMessageSelect(sel);
-            return 1;
+            //selNext = MainMessageSelect(sel);
+            
+            return 2;
         }
 
         // 메인 메세지 선택지로 이동하기 위한 return 값
         int MainMessageSelect(int sel)
         {
-            return (sel == 0) ? 1 : 2;
+            return (sel == 2) ? -1 : sel+1;
         }
 
         //--------------------------------------------------------------------
         // 1. 상태보기
-        public int StatusMessage(ref int selNext, int sel)
+        public int StatusMessage(int sel)
         {
             string[] arr = new string[1];
             arr[sel] = "=> ";
@@ -95,13 +108,13 @@ namespace TextGame
             Console.WriteLine();
             Console.WriteLine($"{arr[0]}나가기");
 
-            selNext = 0;
+            //selNext = 0;
             return 0;
         }
 
         //--------------------------------------------------------------------
         // 2. 인벤토리
-        public int InventoryMessage(ref int selNext, int sel)
+        public int InventoryMessage(int sel)
         {
             string[] arr = new string[2];
             arr[sel] = "=> ";
@@ -116,7 +129,7 @@ namespace TextGame
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 Enter키를 이용해 선택하세요");
 
-            selNext = InventoryMessageSelect(sel);
+            //selNext = InventoryMessageSelect(sel);
             return 1;
         }
 
@@ -127,9 +140,9 @@ namespace TextGame
 
         //--------------------------------------------------------------------
         // 3. 장착관리
-        public int ManageInventoryMessage(ref int selNext, int sel)
+        public int ManageInventoryMessage(int sel)
         {
-            int count = character.itemList.Count;
+            
             string[] arr = new string[count+1];
            
             arr[sel] = "=> ";
@@ -138,7 +151,7 @@ namespace TextGame
             Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
             Console.WriteLine();
             Console.WriteLine("[아이템 목록]");
-            for (int i = 0; i < character.itemList.Count; i++)
+            for (int i = 0; i < count; i++)
             {
                 Console.Write($"{arr[i]} ");
                 foreach (var item in character.table.Rows[i].Skip(1))
@@ -152,13 +165,18 @@ namespace TextGame
 
             Console.WriteLine("원하시는 행동을 Enter키를 이용해 선택하세요");
 
-            selNext = ManageInventoryMessageSelect(sel, count);
+            //selNext = ManageInventoryMessageSelect(sel, count);
             return count;
         }
-        int ManageInventoryMessageSelect(int sel, int count)
+        int ManageInventoryMessageSelect(int sel)
         {
-            if(sel != count) character.itemList[sel].equip = !character.itemList[sel].equip;
-            return (sel == count) ?  0 : 3;
+            if (sel != count)
+            {
+                character.itemList[sel].equip = !character.itemList[sel].equip;
+                character.table.Rows[sel].SetValue(character.itemList[sel].equip ? "[E]": "", 0);
+            }
+
+            return (sel == count) ?  2 : 3;
         }
 
     }
