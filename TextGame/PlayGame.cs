@@ -9,13 +9,19 @@ namespace TextGame
     public class PlayGame
     {
         
+
         public void Play()
         {
-            Control control = new Control(messageHandler);
-            MessageHandler messageHandler = new Message(control);
-            
+            Character character = new Character("Chad", "전사", 1, 10, 5, 100, 1500);
+            Message message = new Message(character);
+            Control control = new Control(message);
 
-            control.ControlMessage();
+
+            int selCurrent = 0;
+            while (true)
+            {
+                selCurrent = control.ControlMessage(selCurrent);
+            }
         }
     }
 }

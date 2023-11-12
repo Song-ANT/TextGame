@@ -9,48 +9,39 @@ namespace TextGame
 {
     public class Control 
     {
-        MessageHandler messageHandler;
-        public int selMessage = 0;
+        Message message;
+        public int selNext;
         public int sel;
         public int num;
         public string[] arr;
 
 
-        public Control() { }
-        public Control(MessageHandler messageHandler) 
+        public Control(Message message)
         {
-            this.messageHandler = messageHandler;
+            this.message = message;
         }
 
-        public void ControlMessage()
+        public int ControlMessage(int selCurrent)
         {
             this.sel = 0;
             while (true)
             {
-                messageHandler.CurrentMessage();
+                num = message.CurrentMessage(selCurrent, ref selNext, sel);
 
                 if (InputKey(ref sel)) break;
                 sel = sel < 0 ? 0 : (sel > num) ? num : sel;
-                arr = messageHandler.ResetString(2);
             }
-
+            //selCurrent = message.NextMessage(selNext, sel);
+            return selNext;
         }
 
 
 
-        //public void NextMessage(int selMessage)
-        //{
-        //    switch (selMessage)
-        //    {
-        //        case 0:
-        //            message.SelectMainMessage(ref selMessage);
-        //            break;
-        //    }
-        //}
+       
 
         // --------------------------------------------------------------
 
-        public bool InputKey(ref int selMessage)
+        public bool InputKey(ref int sel)
         {
             while (true)
             {
@@ -59,11 +50,11 @@ namespace TextGame
                 switch (key.Key)
                 {
                     case ConsoleKey.UpArrow:
-                        selMessage--;
+                        sel--;
                         return false;
 
                     case ConsoleKey.DownArrow:
-                        selMessage++;
+                        sel++;
                         return false;
 
                     case ConsoleKey.Enter:

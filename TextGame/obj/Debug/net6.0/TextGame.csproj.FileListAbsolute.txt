@@ -12,3 +12,6 @@ D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\refint\TextGame.dll
 D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\TextGame.pdb
 D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\TextGame.genruntimeconfig.cache
 D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\ref\TextGame.dll
+D:\GitHub\TextGame\TextGame\bin\Debug\net6.0\ConsoleTables.dll
+D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\TextGame.csproj.AssemblyReference.cache
+D:\GitHub\TextGame\TextGame\obj\Debug\net6.0\TextGame.csproj.CopyComplete

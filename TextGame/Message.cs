@@ -1,63 +1,124 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TextGame
 {
-    public class Message : MessageHandler
+    public class Message
     {
-        //int selMessage ;
-        //int sel;
-        //string[] arr;
-        //int num;
-        Control control;
+        Character character;
 
-        public Message(Control control)
+        public Message(Character character)
         {
-            this.control = control;
+            this.character = character;
         }
 
-        public void CurrentMessage()
+
+        public int CurrentMessage(int selMessage, ref int selNext, int sel)
         {
-            switch (control.selMessage)
+            switch (selMessage)
             {
                 case 0:
-                    MainMessage();
-                    break;
+                    return MainMessage(ref selNext, sel);
+                case 1:
+                    return StatusMessage(ref selNext, sel);
+                case 2:
+                    return InventoryMessage(ref selNext, sel);
+                    
             }
+            return 0;
         }
 
+        //public int NextMessage(int selNext, int sel)
+        //{
+        //    switch (selNext)
+        //    {
+        //        case 0:
+        //            return MainMessageSelect(sel);
+        //    }
 
-        public void MainMessage()
+        //    return 0;
+        //}
+
+
+// -------------------------------------------------------------------------
+        // 마을 메인메세지
+        public int MainMessage(ref int selNext, int sel)
         {
-            control.arr = ResetString(2);
-            this.control.arr[control.sel] = "=>";
+            string[] arr = new string[2];
+            arr[sel] = "=> ";
 
             Console.WriteLine("스파르타 마을에 오신 여러분 환영합니다.");
             Console.WriteLine("이곳에서 전전으로 들어가기 전 활동을 할 수 있습니다.");
             Console.WriteLine();
-            Console.WriteLine($"{control.arr[0]}1. 상태보기");
-            Console.WriteLine($"{control.arr[1]}2. 인벤토리");
+            Console.WriteLine($"{arr[0]}1. 상태보기");
+            Console.WriteLine($"{arr[1]}2. 인벤토리");
             Console.WriteLine();
-            Console.WriteLine("원하시는 행동을 입력해주세요.");
+            Console.WriteLine("원하시는 행동을 Enter키를 이용해 선택하세요");
 
-             control.num = 1;
+            selNext = MainMessageSelect(sel);
+            return 1;
         }
 
-        public void SelectMainMessage(ref int selMessage)
+        // 메인 메세지 선택지로 이동하기 위한 return 값
+        int MainMessageSelect(int sel)
         {
-            selMessage = (control.sel == 0) ? 1 : 2;
+            return (sel == 0) ? 1 : 2;
         }
 
-        public string[] ResetString(int count)
+        //--------------------------------------------------------------------
+        // 상태보기
+        public int StatusMessage(ref int selNext, int sel)
         {
-            string[] arr = Enumerable.Range(0, count).Select(_ => "").ToArray();
+            string[] arr = new string[1];
+            arr[sel] = "=> ";
 
-            return arr;
+            Console.WriteLine("상태보기");
+            Console.WriteLine("캐릭터의 정보르 표시합니다.");
+            Console.WriteLine();
+            Console.WriteLine($"Lv.{character.Level}");
+            Console.WriteLine($"{character.Name}({character.Job})");
+            Console.WriteLine($"공격력 :{character.Atk}");
+            Console.WriteLine($"방어력 : {character.Def}");
+            Console.WriteLine($"체력 : {character.Hp}");
+            Console.WriteLine($"Gold : {character.Gold} G");
+            Console.WriteLine();
+            Console.WriteLine($"{arr[0]}나가기");
+
+            selNext = 0;
+            return 0;
         }
+
+        //--------------------------------------------------------------------
+        // 인벤토리
+        public int InventoryMessage(ref int selNext, int sel)
+        {
+            string[] arr = new string[2];
+            arr[sel] = "=> ";
+
+            Console.WriteLine("인벤토리");
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
+            Console.WriteLine();
+            Console.WriteLine("[아이템 목록]");
+            character.ShowInventory();
+            Console.WriteLine($"{arr[0]} 장착관리");
+            Console.WriteLine($"{arr[1]} 나가기");
+            Console.WriteLine();
+            Console.WriteLine("원하시는 행동을 Enter키를 이용해 선택하세요");
+
+            selNext = InventoryMessageSelect(sel);
+            return 1;
+        }
+
+        int InventoryMessageSelect(int sel)
+        {
+            return (sel == 0) ? 3 : 0;
+        }
+
 
     }
 }
