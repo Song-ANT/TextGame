@@ -13,7 +13,8 @@ namespace TextGame
         public void Play()
         {
             Character character = new Character("Chad", "전사", 1, 10, 5, 100, 1500);
-            Message message = new Message(character);
+            Store store = new Store();
+            Message message = new Message(character, store);
             Control control = new Control(message);
 
 
