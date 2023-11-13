@@ -50,5 +50,10 @@ namespace TextGame
             }
         }
 
+        public void SellStore(Character character, int sel)
+        {
+            character.itemList.Remove(itemList[sel]);
+        }
+
     }
 }

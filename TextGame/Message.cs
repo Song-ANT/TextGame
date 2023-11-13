@@ -165,12 +165,12 @@ namespace TextGame
             {
                 Console.Write($"{arr[i]} ");
 
-                //foreach (var item in character.table.Rows[i].Skip(1))
-                //{
-                //    Console.Write($"{item} | ");
-                //}
+                foreach (var item in character.table.Rows[i].Skip(1))
+                {
+                    Console.Write($"{item} | ");
+                }
 
-                character.table.Rows[i].Skip(1).ToList().ForEach(x=> Console.Write($"{x} | "));
+                //character.table.Rows[i].Skip(1).ToList().ForEach(x=> Console.Write($"{x} | "));
                 
 
                 if (character.itemList[i].equip) Console.Write(" [E]");
