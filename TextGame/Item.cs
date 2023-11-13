@@ -14,16 +14,18 @@ namespace TextGame
         public string status;
         public int statusNum;
         public string explan;
+        public int gold;
 
         
 
-        public Item(bool equip, string name, string status, int statusNum, string explan)
+        public Item(bool equip, string name, string status, int statusNum, string explan, int gold)
         {
             this.equip = equip;
             this.name = name;
             this.status = status;
             this.statusNum = statusNum;
             this.explan = explan;
+            this.gold = gold;
         }
 
 
