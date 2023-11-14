@@ -44,7 +44,8 @@ namespace TextGame
 
         public void ShowInventory()
         {
-            table.Write();
+            table.Configure(o => o.EnableCount = false).Write();
+            //table.Write();
         }
 
         public int CalculateStatus(string status)

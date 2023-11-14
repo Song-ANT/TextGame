@@ -61,7 +61,7 @@ namespace TextGame
 
                     case ConsoleKey.Enter:
                         return true;
-
+                    default: return false;
                 }
             }
 

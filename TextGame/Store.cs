@@ -52,7 +52,21 @@ namespace TextGame
 
         public void SellStore(Character character, int sel)
         {
-            character.itemList.Remove(itemList[sel]);
+            //Console.WriteLine("sel : " + sel);
+            //Console.WriteLine(character.itemList[sel].name);
+            //Console.WriteLine();
+            //foreach (Item item in character.itemList)
+            //{
+            //    Console.WriteLine($"{item.name}, {item.equip}");
+            //}
+            //Console.WriteLine();
+            //character.ShowInventory();
+            //Console.ReadKey();
+
+            
+            character.itemList.RemoveAt(sel);
+            character.table.Rows.RemoveAt(sel);
+            
         }
 
     }

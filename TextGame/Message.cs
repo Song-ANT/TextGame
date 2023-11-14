@@ -40,6 +40,8 @@ namespace TextGame
                     return ManageInventoryMessage(sel);
                 case 5:
                     return StoreBuyMessage(sel);
+                case 6:
+                    return StoreSellMessage(sel);
             }
             return 0;
         }
@@ -62,6 +64,8 @@ namespace TextGame
                     return ManageInventoryMessageSelect(sel);
                 case 5:
                     return StoreBuyMessageSelect(sel);
+                case 6:
+                    return StoreSellMessageSelect(sel);
 
             }
 
@@ -199,7 +203,7 @@ namespace TextGame
         // 3. 상점
         public int StoreMessage(int sel)
         {
-            string[] arr = new string[2];
+            string[] arr = new string[3];
             arr[sel] = "=> ";
 
             Console.WriteLine("상점");
@@ -208,12 +212,13 @@ namespace TextGame
             Console.WriteLine("[아이템 목록]");
             store.ShowStore();
             Console.WriteLine($"{arr[0]} 1. 아이템 구매");
-            Console.WriteLine($"\n\n{arr[1]} 나가기");
+            Console.WriteLine($"{arr[1]} 2. 아이템 판매");
+            Console.WriteLine($"\n\n{arr[2]} 나가기");
             Console.WriteLine();
             Console.WriteLine("원하시는 행동을 Enter키를 이용해 선택하세요");
 
             //selNext = InventoryMessageSelect(sel);
-            return 1;
+            return 2;
         }
 
         int StoreMessageSelect(int sel)
@@ -222,13 +227,15 @@ namespace TextGame
             {
                 case 0:
                     return 5;
+                case 1:
+                    return 6;
                 default:
                     return 0;
             }
         }
 
         //--------------------------------------------------------------------
-        // 5. 아이템 구매
+        // 5. 상점 - 아이템 구매
         public int StoreBuyMessage(int sel)
         {
             int storeCount = store.itemList.Count;
@@ -269,6 +276,59 @@ namespace TextGame
             }
 
             return (sel == storeCount) ? 3 : 5;
+        }
+
+        //--------------------------------------------------------------------
+        // 6. 상점 - 아이템 판매
+        public int StoreSellMessage(int sel)
+        {
+            int count = character.itemList.Count;
+            string[] arr = new string[count + 1];
+
+            arr[sel] = "=> ";
+
+            Console.WriteLine("상점 - 아이템 판매");
+            Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
+            Console.WriteLine();
+            Console.WriteLine("[보유 골드]");
+            Console.WriteLine($"{character.Gold} G\n");
+            Console.WriteLine("[아이템 목록]");
+            for (int i = 0; i < count; i++)
+            {
+                Console.Write($"{arr[i]} ");
+
+                foreach (var item in character.table.Rows[i])
+                {
+                    Console.Write($"{item} | ");
+                }
+                Console.WriteLine() ;
+                //character.table.Rows[i].Skip(1).ToList().ForEach(x=> Console.Write($"{x} | "));
+
+            }
+
+            Console.WriteLine($"\n\n{arr[count]} 나가기");
+
+            Console.WriteLine("원하시는 행동을 Enter키를 이용해 선택하세요");
+
+            //selNext = ManageInventoryMessageSelect(sel, count);
+            return count;
+        }
+        int StoreSellMessageSelect(int sel)
+        {
+            int count = character.itemList.Count;
+
+            if (sel != count)
+            {
+                if (character.itemList[sel].equip == true)
+                {
+                    Console.WriteLine("장착중인 아이템입니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+                else store.SellStore(character, sel);
+            }
+
+            return (sel == count) ? 3 : 6;
         }
 
     }
